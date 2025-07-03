@@ -28,7 +28,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1rem 0;
+            padding: 0.8rem 0;
             transition: all 0.3s ease;
         }
 
@@ -38,7 +38,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
         .logo {
@@ -80,6 +80,13 @@
             width: 100%;
         }
 
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -108,11 +115,11 @@
             position: relative;
             z-index: 1;
             max-width: 800px;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(30px);
@@ -120,7 +127,7 @@
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 4vw, 1.3rem);
             margin-bottom: 2rem;
             opacity: 0;
             transform: translateY(30px);
@@ -190,15 +197,13 @@
 
         /* Sections */
         .section {
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 6vw, 2.5rem);
             text-align: center;
             margin-bottom: 3rem;
             color: #333;
@@ -220,27 +225,34 @@
         /* About Section */
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
             align-items: center;
         }
 
         .profile-image {
-            width: 300px;
+            width: 100%;
+            max-width: 300px;
             height: 300px;
             border-radius: 50%;
             object-fit: cover;
             border: 8px solid #f8f9fa;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
+            margin: 0 auto;
+            display: block;
         }
 
         .profile-image:hover {
             transform: scale(1.05);
         }
 
+        .about-text {
+            text-align: center;
+        }
+
         .about-text h3 {
-            font-size: 1.8rem;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
             margin-bottom: 1rem;
             color: #667eea;
         }
@@ -255,6 +267,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            align-items: center;
         }
 
         .contact-item {
@@ -262,11 +275,14 @@
             align-items: center;
             gap: 1rem;
             color: #666;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .contact-item i {
             color: #667eea;
             width: 20px;
+            flex-shrink: 0;
         }
 
         /* Experience Section */
@@ -283,7 +299,7 @@
         .timeline::before {
             content: '';
             position: absolute;
-            left: 50%;
+            left: 20px;
             transform: translateX(-50%);
             width: 4px;
             height: 100%;
@@ -294,7 +310,11 @@
         .timeline-item {
             position: relative;
             margin: 3rem 0;
-            width: 50%;
+            width: 100%;
+            left: 0;
+            padding-left: 60px;
+            padding-right: 0;
+            text-align: left;
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.8s ease;
@@ -305,20 +325,9 @@
             transform: translateY(0);
         }
 
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            padding-right: 2rem;
-            text-align: right;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            padding-left: 2rem;
-        }
-
         .timeline-content {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             position: relative;
@@ -338,7 +347,7 @@
         }
 
         .timeline-title {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: #333;
@@ -353,13 +362,14 @@
         .timeline-description {
             color: #666;
             line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .timeline-dot {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 30px;
+            left: 20px;
+            transform: translateX(-50%);
             width: 20px;
             height: 20px;
             background: #667eea;
@@ -371,14 +381,14 @@
         /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .skill-item {
             background: white;
-            padding: 2rem;
+            padding: 2rem 1rem;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -404,7 +414,7 @@
         }
 
         .skill-name {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             font-weight: bold;
             margin-bottom: 1rem;
             color: #333;
@@ -440,7 +450,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -484,14 +494,12 @@
             transform: scale(1.1);
         }
 
-      
-
         .project-content {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .project-title {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
             font-weight: bold;
             margin-bottom: 1rem;
             color: #333;
@@ -501,6 +509,7 @@
             color: #666;
             margin-bottom: 1.5rem;
             line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .project-tech {
@@ -514,13 +523,14 @@
             background: #e9ecef;
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #666;
         }
 
         .project-links {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .project-link {
@@ -529,6 +539,9 @@
             text-decoration: none;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
         }
 
         .project-link.primary {
@@ -550,14 +563,15 @@
             background: #333;
             color: white;
             text-align: center;
-            padding: 3rem 0;
+            padding: 3rem 1rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .social-link {
@@ -597,16 +611,49 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
             .nav-menu {
-                display: none;
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+                gap: 2rem;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+                backdrop-filter: blur(10px);
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-menu.active {
+                left: 0;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .nav-menu li {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInUp 0.5s ease forwards;
+            }
+
+            .nav-menu li:nth-child(1) { animation-delay: 0.1s; }
+            .nav-menu li:nth-child(2) { animation-delay: 0.2s; }
+            .nav-menu li:nth-child(3) { animation-delay: 0.3s; }
+            .nav-menu li:nth-child(4) { animation-delay: 0.4s; }
+            .nav-menu li:nth-child(5) { animation-delay: 0.5s; }
+
+            .hero {
+                height: 100vh;
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
             }
 
             .about-content {
@@ -618,36 +665,148 @@
             .profile-image {
                 width: 250px;
                 height: 250px;
-                margin: 0 auto;
+            }
+
+            .contact-item {
+                font-size: 0.9rem;
+                justify-content: center;
             }
 
             .timeline::before {
-                left: 30px;
+                left: 20px;
             }
 
             .timeline-item {
                 width: 100%;
                 left: 0;
-                padding-left: 70px;
-                padding-right: 0;
+                padding-left: 60px;
+                padding-right: 1rem;
                 text-align: left;
-            }
-
-            .timeline-item:nth-child(odd) {
-                text-align: left;
-                padding-right: 0;
             }
 
             .timeline-dot {
-                left: 30px;
+                left: 20px;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
             }
 
             .section {
                 padding: 3rem 1rem;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+
+            .project-link {
+                flex: none;
+            }
+
+            .social-links {
+                gap: 1rem;
+            }
+
+            .floating-element {
+                display: none;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .timeline-content {
+                padding: 1rem;
+            }
+
+            .skill-item {
+                padding: 1.5rem 1rem;
+            }
+
+            .project-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .tech-tag {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr 2fr;
+                text-align: left;
+                gap: 4rem;
+            }
+
+            .about-text {
+                text-align: left;
+            }
+
+            .contact-info {
+                align-items: flex-start;
+            }
+
+            .contact-item {
+                justify-content: flex-start;
+            }
+
+            .timeline::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .timeline-item {
+                width: 50%;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .timeline-item:nth-child(odd) {
+                left: 0;
+                padding-right: 2rem;
+                text-align: right;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 50%;
+                padding-left: 2rem;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 50%;
+                transform: translate(-50%, -50%);
+                top: 50%;
             }
         }
 
@@ -669,6 +828,9 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">FA</div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
@@ -835,15 +997,12 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-image">
-                    <img src="menaconversationalai.jpeg" alt="E-Commerce Platform">
-                    <div class="project-image-overlay">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
+                    <img src="menaconversationalai.jpeg" alt="Mena Conversational AI">
                 </div>
                 <div class="project-content">
-                    <div class="project-title">Mena Conversational Ai</div>
+                    <div class="project-title">Mena Conversational AI</div>
                     <div class="project-description">
-                        In its 5th annual edition, the CONVERSATIONAL – AI & CONTACT CENTER AUTOMATION SUMMIT will be the ideal gathering for industry executives and innovators in the fields of conversational AI, chatbots, virtual assistants,  voice technology, and conversation design.
+                        In its 5th annual edition, the CONVERSATIONAL – AI & CONTACT CENTER AUTOMATION SUMMIT will be the ideal gathering for industry executives and innovators in the fields of conversational AI, chatbots, virtual assistants, voice technology, and conversation design.
                     </div>
                     <div class="project-tech">
                         <span class="tech-tag">WordPress</span>
@@ -855,16 +1014,12 @@
                     </div>
                     <div class="project-links">
                         <a href="https://menaconversationalai.com/" class="project-link primary">View Project</a>
-                        
                     </div>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="meprocuretect.jpeg" alt="Corporate Website">
-                    <div class="project-image-overlay">
-                        <i class="fas fa-building"></i>
-                    </div>
+                    <img src="meprocuretect.jpeg" alt="Me Procure Tech">
                 </div>
                 <div class="project-content">
                     <div class="project-title">Me Procure tect</div>
@@ -886,18 +1041,15 @@
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="Smartportstransformation.jpeg" alt="Blog Platform">
-                    <div class="project-image-overlay">
-                        <i class="fas fa-blog"></i>
-                    </div>
+                    <img src="Smartportstransformation.jpeg" alt="Smart Ports Transformation">
                 </div>
                 <div class="project-content">
                     <div class="project-title">Smart Ports transformation</div>
                     <div class="project-description">
-                        The Kingdom of Saudi Arabia is undergoing a paradigm shift in its approach to port operations and logistics through the integration of cutting-edge technologies, giving rise to the concept of Smart Ports.This transformative journey is part of the nation’sbroader commitment to economic diversification.
+                        The Kingdom of Saudi Arabia is undergoing a paradigm shift in its approach to port operations and logistics through the integration of cutting-edge technologies, giving rise to the concept of Smart Ports.This transformative journey is part of the nation'sbroader commitment to economic diversification.
                     </div>
                     <div class="project-tech">
-                <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">WordPress</span>
                         <span class="tech-tag">Custom Theme</span>
                         <span class="tech-tag">SEO</span>
                         <span class="tech-tag">HTML</span>
@@ -906,16 +1058,12 @@
                     </div>
                     <div class="project-links">
                         <a href="https://smartportstransformation.com/" class="project-link primary">View Project</a>
-                        
                     </div>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="bespoke.jpeg" alt="Blog Platform">
-                    <div class="project-image-overlay">
-                        <i class="fas fa-blog"></i>
-                    </div>
+                    <img src="bespoke.jpeg" alt="Bespoke">
                 </div>
                 <div class="project-content">
                     <div class="project-title">Bespoke</div>
@@ -923,7 +1071,7 @@
                         This roundtable is dedicated to school and university career service departments, providing a platform to discuss student readiness for higher education and the role of bridge programs in ensuring a smooth transition for Emirati students.
                     </div>
                     <div class="project-tech">
-                <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">WordPress</span>
                         <span class="tech-tag">Custom Theme</span>
                         <span class="tech-tag">SEO</span>
                         <span class="tech-tag">HTML</span>
@@ -932,24 +1080,20 @@
                     </div>
                     <div class="project-links">
                         <a href="https://bespoke.verve-management.com/2025-dubai-messaging-mixer-mix-with-experts-and-learn-how-to-increase-conversions-with-whatsapp-and-rcs/" class="project-link primary">View Project</a>
-                        
                     </div>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="africawomenleaders.jpeg" alt="Blog Platform">
-                    <div class="project-image-overlay">
-                        <i class="fas fa-blog"></i>
-                    </div>
+                    <img src="africawomenleaders.jpeg" alt="Africa Women Leaders">
                 </div>
                 <div class="project-content">
                     <div class="project-title">Africa Women Leaders</div>
                     <div class="project-description">
-                        The Africa Women Leaders Summit & Awards 2025 is an empowering platform dedicated to recognizing and advancing women’s leadership across all sectors. This summit aims to transcend the traditional narrative of women’s empowerment.
+                        The Africa Women Leaders Summit & Awards 2025 is an empowering platform dedicated to recognizing and advancing women's leadership across all sectors. This summit aims to transcend the traditional narrative of women's empowerment.
                     </div>
                     <div class="project-tech">
-                <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">WordPress</span>
                         <span class="tech-tag">Custom Theme</span>
                         <span class="tech-tag">SEO</span>
                         <span class="tech-tag">HTML</span>
@@ -958,16 +1102,12 @@
                     </div>
                     <div class="project-links">
                         <a href="https://africawomenleaders.com/" class="project-link primary">View Project</a>
-                        
                     </div>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-image">
-                    <img src="hseweek-uae.jpeg" alt="Blog Platform">
-                    <div class="project-image-overlay">
-                        <i class="fas fa-blog"></i>
-                    </div>
+                    <img src="hseweek-uae.jpeg" alt="HSE Week UAE">
                 </div>
                 <div class="project-content">
                     <div class="project-title">HSE Week UAE</div>
@@ -975,7 +1115,7 @@
                         The premier platform where innovation, technology, and best practices in Health, Safety, and Environment (HSE) come together to redefine workplace safety and sustainability. As the UAE accelerates its commitment to Vision 2050 and sustainable industrial growth.
                     </div>
                     <div class="project-tech">
-                <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">WordPress</span>
                         <span class="tech-tag">Custom Theme</span>
                         <span class="tech-tag">SEO</span>
                         <span class="tech-tag">HTML</span>
@@ -984,7 +1124,6 @@
                     </div>
                     <div class="project-links">
                         <a href="https://hseweek-uae.com/" class="project-link primary">View Project</a>
-                        
                     </div>
                 </div>
             </div>
@@ -1011,6 +1150,44 @@
     </footer>
 
     <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                navMenu.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1065,126 +1242,77 @@
             observer.observe(el);
         });
 
-        // Typing effect for hero section
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
+        // Add touch support for hover effects on mobile
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.project-card, .skill-item, .timeline-content').forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        }
+
+        // Parallax effect for hero section (disabled on mobile for performance)
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                const heroContent = document.querySelector('.hero-content');
+                
+                if (hero && scrolled < hero.offsetHeight) {
+                    heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        }
+
+        // Performance optimization: throttle scroll events
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
                 }
             }
-            type();
         }
 
-        // Initialize typing effect after page load
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('loading');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Add loading states
         window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Handle orientation change on mobile
+        window.addEventListener('orientationchange', () => {
             setTimeout(() => {
-                const heroTitle = document.querySelector('.hero h1');
-                const heroText = document.querySelector('.hero p');
-                
-                typeWriter(heroTitle, 'Faiq Aziz', 150);
-                setTimeout(() => {
-                    typeWriter(heroText, 'WordPress Developer & Web Designer', 80);
-                }, 1500);
-            }, 1000);
+                window.scrollTo(0, window.scrollY);
+            }, 100);
         });
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            const heroContent = document.querySelector('.hero-content');
-            
-            if (hero && scrolled < hero.offsetHeight) {
-                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
-
-        // Dynamic floating elements
-        function createFloatingElement() {
-            const element = document.createElement('div');
-            element.className = 'floating-element';
-            element.style.left = Math.random() * 100 + '%';
-            element.style.top = Math.random() * 100 + '%';
-            element.style.width = (Math.random() * 50 + 30) + 'px';
-            element.style.height = element.style.width;
-            element.style.animationDelay = Math.random() * 6 + 's';
-            element.style.animationDuration = (Math.random() * 4 + 4) + 's';
-            
-            return element;
-        }
-
-        // Add more floating elements
-        const floatingContainer = document.querySelector('.floating-elements');
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                floatingContainer.appendChild(createFloatingElement());
-            }, i * 1000);
-        }
-
-        // Mouse cursor effect
-        const cursor = document.createElement('div');
-        cursor.className = 'cursor';
-        cursor.style.cssText = `
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: rgba(102, 126, 234, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s;
-            mix-blend-mode: multiply;
-        `;
-        document.body.appendChild(cursor);
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px';
-            cursor.style.top = e.clientY - 10 + 'px';
-        });
-
-        // Hover effects for interactive elements
-        document.querySelectorAll('a, button, .project-card, .skill-item, .timeline-content').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(2)';
-                cursor.style.opacity = '0.5';
-            });
-            
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
-                cursor.style.opacity = '1';
-            });
-        });
-
-        // Mobile menu toggle (for future enhancement)
-        const mobileMenuToggle = document.createElement('div');
-        mobileMenuToggle.className = 'mobile-menu-toggle';
-        mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        mobileMenuToggle.style.cssText = `
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #333;
-        `;
-
-        const navContainer = document.querySelector('.nav-container');
-        navContainer.appendChild(mobileMenuToggle);
-
-        // Show mobile menu toggle on small screens
-        function checkScreenSize() {
-            if (window.innerWidth <= 768) {
-                mobileMenuToggle.style.display = 'block';
-            } else {
-                mobileMenuToggle.style.display = 'none';
-            }
-        }
-
-        window.addEventListener('resize', checkScreenSize);
-        checkScreenSize();
 
         // Smooth reveal animation for sections
         function revealSection(entries, observer) {
@@ -1206,142 +1334,6 @@
             section.style.transition = 'all 0.8s ease';
             sectionObserver.observe(section);
         });
-
-        // Counter animation for stats (if you want to add stats later)
-        function animateCounter(element, target, duration = 2000) {
-            let start = 0;
-            const increment = target / (duration / 16);
-            
-            function updateCounter() {
-                start += increment;
-                if (start < target) {
-                    element.textContent = Math.floor(start);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = target;
-                }
-            }
-            updateCounter();
-        }
-
-        // Preloader (optional)
-        const preloader = document.createElement('div');
-        preloader.className = 'preloader';
-        preloader.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease;
-        `;
-        
-        const loader = document.createElement('div');
-        loader.style.cssText = `
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        `;
-        
-        const spinKeyframes = `
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        `;
-        
-        const style = document.createElement('style');
-        style.textContent = spinKeyframes;
-        document.head.appendChild(style);
-        
-        preloader.appendChild(loader);
-        document.body.appendChild(preloader);
-
-        // Hide preloader when page is loaded
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.remove();
-                }, 500);
-            }, 1000);
-        });
-
-        // Add some interactive particles
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.style.cssText = `
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: rgba(102, 126, 234, 0.6);
-                border-radius: 50%;
-                pointer-events: none;
-                animation: particleFloat 3s ease-out forwards;
-            `;
-            
-            return particle;
-        }
-
-        const particleKeyframes = `
-            @keyframes particleFloat {
-                0% {
-                    transform: translateY(0) scale(1);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateY(-100px) scale(0);
-                    opacity: 0;
-                }
-            }
-        `;
-        
-        const particleStyle = document.createElement('style');
-        particleStyle.textContent = particleKeyframes;
-        document.head.appendChild(particleStyle);
-
-        // Create particles on click
-        document.addEventListener('click', (e) => {
-            for (let i = 0; i < 5; i++) {
-                const particle = createParticle();
-                particle.style.left = e.clientX + (Math.random() - 0.5) * 20 + 'px';
-                particle.style.top = e.clientY + (Math.random() - 0.5) * 20 + 'px';
-                document.body.appendChild(particle);
-                
-                setTimeout(() => {
-                    particle.remove();
-                }, 3000);
-            }
-        });
-
-        // Performance optimization: throttle scroll events
-        function throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            }
-        }
-
-        // Apply throttling to scroll events
-        const throttledScroll = throttle(() => {
-            // Your scroll event code here
-        }, 16);
-
-        window.addEventListener('scroll', throttledScroll);
     </script>
 </body>
 </html>
