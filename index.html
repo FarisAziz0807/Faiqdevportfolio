@@ -3,1337 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faiq Aziz - WordPress Developer</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 0.8rem 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 1rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #6366f1;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: #6366f1;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: #6366f1;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #333;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 1rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 4vw, 1.3rem);
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.3s forwards;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.6s forwards;
-        }
-
-        .cta-button:hover {
-            background: white;
-            color: #667eea;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Floating elements */
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .floating-element {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .floating-element:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        /* Sections */
-        .section {
-            padding: 5rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 6vw, 2.5rem);
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #333;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .profile-image {
-            width: 100%;
-            max-width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 8px solid #f8f9fa;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            margin: 0 auto;
-            display: block;
-        }
-
-        .profile-image:hover {
-            transform: scale(1.05);
-        }
-
-        .about-text {
-            text-align: center;
-        }
-
-        .about-text h3 {
-            font-size: clamp(1.3rem, 4vw, 1.8rem);
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .about-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: #666;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: #666;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .contact-item i {
-            color: #667eea;
-            width: 20px;
-            flex-shrink: 0;
-        }
-
-        /* Experience Section */
-        .experience {
-            background: #f8f9fa;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin: 3rem 0;
-            width: 100%;
-            left: 0;
-            padding-left: 60px;
-            padding-right: 0;
-            text-align: left;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .timeline-item.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-content {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .timeline-date {
-            font-size: 0.9rem;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .timeline-company {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-description {
-            color: #666;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            top: 30px;
-            left: 20px;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: #667eea;
-            border: 4px solid white;
-            border-radius: 50%;
-            z-index: 10;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .skill-item {
-            background: white;
-            padding: 2rem 1rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .skill-item.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .skill-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .skill-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
-
-        .skill-name {
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 8px;
-            background: #e9ecef;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 4px;
-            width: 0;
-            transition: width 2s ease;
-        }
-
-        .skill-percentage {
-            font-size: 0.9rem;
-            color: #666;
-            font-weight: 600;
-        }
-
-        /* Projects Section */
-        .projects {
-            background: #f8f9fa;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .project-card.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.1);
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-title {
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .project-description {
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tech-tag {
-            background: #e9ecef;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .project-link {
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-align: center;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .project-link.primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .project-link.secondary {
-            border: 2px solid #667eea;
-            color: #667eea;
-        }
-
-        .project-link:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 3rem 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: #667eea;
-            transform: translateY(-3px);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: rgba(255, 255, 255, 0.98);
-                flex-direction: column;
-                justify-content: start;
-                align-items: center;
-                gap: 2rem;
-                padding-top: 2rem;
-                transition: left 0.3s ease;
-                backdrop-filter: blur(10px);
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-menu li {
-                opacity: 0;
-                transform: translateY(20px);
-                animation: fadeInUp 0.5s ease forwards;
-            }
-
-            .nav-menu li:nth-child(1) { animation-delay: 0.1s; }
-            .nav-menu li:nth-child(2) { animation-delay: 0.2s; }
-            .nav-menu li:nth-child(3) { animation-delay: 0.3s; }
-            .nav-menu li:nth-child(4) { animation-delay: 0.4s; }
-            .nav-menu li:nth-child(5) { animation-delay: 0.5s; }
-
-            .hero {
-                height: 100vh;
-                padding: 0 1rem;
-            }
-
-            .hero-content {
-                padding: 0 1rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .profile-image {
-                width: 250px;
-                height: 250px;
-            }
-
-            .contact-item {
-                font-size: 0.9rem;
-                justify-content: center;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                left: 0;
-                padding-left: 60px;
-                padding-right: 1rem;
-                text-align: left;
-            }
-
-            .timeline-dot {
-                left: 20px;
-            }
-
-            .timeline-content {
-                padding: 1.5rem;
-            }
-
-            .section {
-                padding: 3rem 1rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .project-links {
-                flex-direction: column;
-            }
-
-            .project-link {
-                flex: none;
-            }
-
-            .social-links {
-                gap: 1rem;
-            }
-
-            .floating-element {
-                display: none;
-            }
-
-            .cta-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0 1rem;
-            }
-
-            .profile-image {
-                width: 200px;
-                height: 200px;
-            }
-
-            .timeline-content {
-                padding: 1rem;
-            }
-
-            .skill-item {
-                padding: 1.5rem 1rem;
-            }
-
-            .project-content {
-                padding: 1.5rem 1rem;
-            }
-
-            .tech-tag {
-                font-size: 0.75rem;
-                padding: 0.2rem 0.6rem;
-            }
-
-            .section {
-                padding: 2rem 1rem;
-            }
-        }
-
-        /* Large screens */
-        @media (min-width: 1024px) {
-            .about-content {
-                grid-template-columns: 1fr 2fr;
-                text-align: left;
-                gap: 4rem;
-            }
-
-            .about-text {
-                text-align: left;
-            }
-
-            .contact-info {
-                align-items: flex-start;
-            }
-
-            .contact-item {
-                justify-content: flex-start;
-            }
-
-            .timeline::before {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .timeline-item {
-                width: 50%;
-                padding-left: 0;
-                padding-right: 0;
-            }
-
-            .timeline-item:nth-child(odd) {
-                left: 0;
-                padding-right: 2rem;
-                text-align: right;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 50%;
-                padding-left: 2rem;
-                text-align: left;
-            }
-
-            .timeline-dot {
-                left: 50%;
-                transform: translate(-50%, -50%);
-                top: 50%;
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <!-- ============================================================
+         Faiq Aziz — Freelance WordPress Developer Portfolio
+         HOW TO EDIT LATER (quick reference):
+         • Upwork link .... find & replace  YOUR_UPWORK_ID  everywhere
+         • Contact form ... replace  YOUR_FORMSPREE_ID  (see Contact section)
+         • Text ........... all copy lives in this file, in plain sentences
+         • Images ......... swap the .jpeg / .png files in this same folder
+         • Colors/fonts ... edit styles.css  (:root variables at the top)
+         ============================================================ -->
+
+    <title>Faiq Aziz — WordPress Developer for Events & Growing Businesses</title>
+    <meta name="description" content="Freelance WordPress developer who builds fast, high-converting, SEO-ready websites for event organizers, summits, and B2B businesses. 40+ sites shipped. Available on Upwork.">
+    <meta name="author" content="Faiq Aziz">
+
+    <!-- Open Graph (nice link previews when shared) -->
+    <meta property="og:title" content="Faiq Aziz — WordPress Developer for Events & Growing Businesses">
+    <meta property="og:description" content="Fast, high-converting, SEO-ready WordPress websites. 40+ sites shipped in 2+ years.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="Faiq_Aziz.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">FA</div>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="floating-elements">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Faiq Aziz</h1>
-            <p>WordPress Developer & Web Designer</p>
-            <a href="#about" class="cta-button">Explore My Work</a>
-        </div>
-    </section>
+    <!-- ==================== NAVIGATION ==================== -->
+    <header class="nav" id="top">
+        <div class="wrap nav__inner">
+            <a href="#top" class="brand" aria-label="Faiq Aziz — home">
+                <span class="brand__mark">FA</span>
+                <span class="brand__name">Faiq Aziz</span>
+                <span class="brand__role">WordPress Dev</span>
+            </a>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2 class="section-title fade-in">About Me</h2>
-        <div class="about-content">
-            <div>
-                <img src="Faiq_Aziz.png" alt="Faiq Aziz" class="profile-image fade-in">
-            </div>
-            <div class="about-text fade-in">
-                <h3>WordPress Developer with Passion for Excellence</h3>
-                <p>I am a WordPress developer with expertise in creating responsive, custom websites and enhancing user experience. With over 2 years of professional experience, I've successfully developed and launched 40+ dynamic websites for various clients.</p>
-                <p>I specialize in custom theme development, performance optimization, SEO best practices, and ensuring cross-browser compatibility. My goal is to create websites that not only look great but also perform exceptionally well.</p>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Islamabad, Pakistan</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+92-3039301965</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>faiqaziz360@gmail.com</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <nav class="nav__links" id="navLinks" aria-label="Primary">
+                <a href="#work" class="nav__link">Work</a>
+                <a href="#services" class="nav__link">Services</a>
+                <a href="#process" class="nav__link">Process</a>
+                <a href="#about" class="nav__link">About</a>
+                <!-- SWAP: your Upwork profile URL -->
+                <a href="https://www.upwork.com/freelancers/YOUR_UPWORK_ID" target="_blank" rel="noopener" class="btn btn--sm btn--solid nav__cta">
+                    <i class="fa-brands fa-upwork" aria-hidden="true"></i> Message on Upwork
+                </a>
+            </nav>
 
-    <!-- Experience Section -->
-    <section id="experience" class="section experience">
-        <h2 class="section-title fade-in">Experience</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">December 2024 - June 2025</div>
-                    <div class="timeline-title">WordPress Developer (Remote)</div>
-                    <div class="timeline-company">Verve Management (UAE)</div>
-                    <div class="timeline-description">
-                        Collaborated with a team to successfully develop and launch 40+ dynamic websites for various clients. Managed and maintained all company websites, ensuring timely updates and optimal performance. Designed high-impact web banners and digital assets using Canva.
-                    </div>
-                </div>
-                <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">August 2023 - September 2024</div>
-                    <div class="timeline-title">WordPress Developer</div>
-                    <div class="timeline-company">Moldavia Technologies Pvt Ltd</div>
-                    <div class="timeline-description">
-                        Maintained and updated WordPress core, themes, and plugins for performance and security. Resolved website issues and applied SEO best practices to boost search visibility.
-                    </div>
-                </div>
-                <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">January 2023 - June 2023</div>
-                    <div class="timeline-title">WordPress Developer - Intern</div>
-                    <div class="timeline-company">Ropstam Solutions Inc.</div>
-                    <div class="timeline-description">
-                        Maintained and updated WordPress websites. Assisted in theme customization and troubleshooting various website issues.
-                    </div>
-                </div>
-                <div class="timeline-dot"></div>
-            </div>
+            <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-    </section>
+    </header>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <h2 class="section-title fade-in">Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <i class="fab fa-wordpress"></i>
-                </div>
-                <div class="skill-name">WordPress Development</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-width="90"></div>
-                </div>
-                <div class="skill-percentage">90%</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <div class="skill-name">Responsive Design</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-width="85"></div>
-                </div>
-                <div class="skill-percentage">85%</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="skill-name">SEO Optimization</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-width="80"></div>
-                </div>
-                <div class="skill-percentage">80%</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <div class="skill-name">Performance Optimization</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-width="85"></div>
-                </div>
-                <div class="skill-percentage">85%</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <div class="skill-name">Custom Theme Development</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-width="88"></div>
-                </div>
-                <div class="skill-percentage">88%</div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <div class="skill-name">Cross-Browser Compatibility</div>
-                <div class="skill-bar">
-                    <div class="skill-progress" data-width="82"></div>
-                </div>
-                <div class="skill-percentage">82%</div>
-            </div>
-        </div>
-    </section>
+    <main>
+        <!-- ==================== HERO ==================== -->
+        <section class="hero">
+            <div class="wrap hero__inner">
+                <div class="hero__copy">
+                    <p class="eyebrow reveal"><span class="dot"></span> WordPress Developer · Islamabad, PK · Available for projects</p>
+                    <h1 class="hero__title reveal">I build fast, high-converting <span class="hl">WordPress websites</span> for events, summits &amp; growing businesses.</h1>
+                    <p class="hero__sub reveal">Custom-coded, SEO-ready, and flawless on every screen. I help event organizers and B2B teams turn visitors into registrations and leads — <strong>40+ sites shipped in 2+ years.</strong></p>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section projects">
-        <h2 class="section-title fade-in">Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="menaconversationalai.jpeg" alt="Mena Conversational AI">
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Mena Conversational AI</div>
-                    <div class="project-description">
-                        In its 5th annual edition, the CONVERSATIONAL – AI & CONTACT CENTER AUTOMATION SUMMIT will be the ideal gathering for industry executives and innovators in the fields of conversational AI, chatbots, virtual assistants, voice technology, and conversation design.
+                    <div class="hero__actions reveal">
+                        <!-- SWAP: your Upwork profile URL -->
+                        <a href="https://www.upwork.com/freelancers/YOUR_UPWORK_ID" target="_blank" rel="noopener" class="btn btn--solid btn--lg">
+                            <i class="fa-brands fa-upwork" aria-hidden="true"></i> Message me on Upwork
+                        </a>
+                        <a href="#work" class="btn btn--ghost btn--lg">See my work <i class="fa-solid fa-arrow-down-long" aria-hidden="true"></i></a>
                     </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">Custom Theme</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://menaconversationalai.com/" class="project-link primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="meprocuretect.jpeg" alt="Me Procure Tech">
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Me Procure tect</div>
-                    <div class="project-description">
-                        The Global Procurement Software Market, valued at 4.7 billion USD in 2021, is projected to reach 10.2 billion USD by 2027, growing at a CAGR of 10.17%. Market drivers include the rising demand for procurement process automation and swift adoption of e-procurement technology.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">Custom Theme</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://meprocuretech.com/" class="project-link primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="Smartportstransformation.jpeg" alt="Smart Ports Transformation">
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Smart Ports transformation</div>
-                    <div class="project-description">
-                        The Kingdom of Saudi Arabia is undergoing a paradigm shift in its approach to port operations and logistics through the integration of cutting-edge technologies, giving rise to the concept of Smart Ports.This transformative journey is part of the nation'sbroader commitment to economic diversification.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">Custom Theme</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://smartportstransformation.com/" class="project-link primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="bespoke.jpeg" alt="Bespoke">
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Bespoke</div>
-                    <div class="project-description">
-                        This roundtable is dedicated to school and university career service departments, providing a platform to discuss student readiness for higher education and the role of bridge programs in ensuring a smooth transition for Emirati students.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">Custom Theme</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://bespoke.verve-management.com/2025-dubai-messaging-mixer-mix-with-experts-and-learn-how-to-increase-conversions-with-whatsapp-and-rcs/" class="project-link primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="africawomenleaders.jpeg" alt="Africa Women Leaders">
-                </div>
-                <div class="project-content">
-                    <div class="project-title">Africa Women Leaders</div>
-                    <div class="project-description">
-                        The Africa Women Leaders Summit & Awards 2025 is an empowering platform dedicated to recognizing and advancing women's leadership across all sectors. This summit aims to transcend the traditional narrative of women's empowerment.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">Custom Theme</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://africawomenleaders.com/" class="project-link primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="hseweek-uae.jpeg" alt="HSE Week UAE">
-                </div>
-                <div class="project-content">
-                    <div class="project-title">HSE Week UAE</div>
-                    <div class="project-description">
-                        The premier platform where innovation, technology, and best practices in Health, Safety, and Environment (HSE) come together to redefine workplace safety and sustainability. As the UAE accelerates its commitment to Vision 2050 and sustainable industrial growth.
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">Custom Theme</span>
-                        <span class="tech-tag">SEO</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JS</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://hseweek-uae.com/" class="project-link primary">View Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
+                    <ul class="hero__stats reveal" aria-label="Highlights">
+                        <li><strong data-count="40" data-suffix="+">40+</strong><span>Websites shipped</span></li>
+                        <li><strong data-count="2" data-suffix="+ yrs">2+ yrs</strong><span>Building on WordPress</span></li>
+                        <li><strong data-count="100" data-suffix="%">100%</strong><span>Responsive &amp; SEO-ready</span></li>
+                    </ul>
+                </div>
+
+                <!-- Portrait as the main hero image. Swap Faiq_Aziz.png to change it. -->
+                <div class="hero__showcase reveal">
+                    <figure class="portrait">
+                        <img src="Faiq_Aziz.png" alt="Faiq Aziz, freelance WordPress developer" loading="eager" width="520" height="620">
+                    </figure>
+                    <div class="badge badge--float badge--tl"><i class="fa-brands fa-wordpress" aria-hidden="true"></i> WordPress Expert</div>
+                    <div class="badge badge--float badge--br"><span class="badge__dot"></span> Available now</div>
+                </div>
+            </div>
+
+            <!-- Trust strip -->
+            <div class="wrap">
+                <div class="trust reveal">
+                    <span class="trust__label">Trusted for</span>
+                    <span>Event &amp; Summit Sites</span>
+                    <span class="trust__sep">·</span>
+                    <span>B2B / Corporate</span>
+                    <span class="trust__sep">·</span>
+                    <span>Landing Pages</span>
+                    <span class="trust__sep">·</span>
+                    <span>UAE / MENA &amp; Global Clients</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SERVICES ==================== -->
+        <section class="section" id="services">
+            <div class="wrap">
+                <header class="section__head reveal">
+                    <p class="eyebrow">// What I do</p>
+                    <h2 class="section__title">Services built around one goal: a site that <span class="hl">works</span>.</h2>
+                    <p class="section__lead">Not just a pretty page — a fast, findable, conversion-focused website you can grow with.</p>
+                </header>
+
+                <div class="grid grid--3 services">
+                    <article class="card svc reveal">
+                        <span class="svc__icon"><i class="fa-brands fa-wordpress" aria-hidden="true"></i></span>
+                        <h3>Custom WordPress Development</h3>
+                        <p>Hand-built themes and reusable blocks tailored to your brand — no bloated templates, just clean code you actually own and can grow with.</p>
+                    </article>
+
+                    <article class="card svc reveal">
+                        <span class="svc__icon"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></span>
+                        <h3>Landing &amp; Event Pages that Convert</h3>
+                        <p>Registration pages, summit sites and funnels designed and structured to turn visitors into sign-ups, leads and ticket sales.</p>
+                    </article>
+
+                    <article class="card svc reveal">
+                        <span class="svc__icon"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></span>
+                        <h3>SEO Foundations</h3>
+                        <p>On-page SEO, clean structure and schema markup so the right clients actually find you on Google — baked in from day one, not bolted on later.</p>
+                    </article>
+
+                    <article class="card svc reveal">
+                        <span class="svc__icon"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i></span>
+                        <h3>Speed &amp; Core Web Vitals</h3>
+                        <p>Image optimization, caching and lean markup for sub-2-second loads and green PageSpeed scores — because slow sites lose clients.</p>
+                    </article>
+
+                    <article class="card svc reveal">
+                        <span class="svc__icon"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i></span>
+                        <h3>Responsive, Mobile-First Builds</h3>
+                        <p>Pixel-perfect from a phone to a 4K monitor, tested across real devices and browsers — because most of your traffic is on mobile.</p>
+                    </article>
+
+                    <article class="card svc reveal">
+                        <span class="svc__icon"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></span>
+                        <h3>Care, Fixes &amp; Maintenance</h3>
+                        <p>Updates, backups, security hardening and fast fixes so your site stays quick, safe and up to date long after launch day.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PORTFOLIO / CASE STUDIES ==================== -->
+        <section class="section section--alt" id="work">
+            <div class="wrap">
+                <header class="section__head reveal">
+                    <p class="eyebrow">// Selected work</p>
+                    <h2 class="section__title">Real sites, real deadlines, <span class="hl">measurable outcomes</span>.</h2>
+                    <p class="section__lead">A selection of live event, summit and B2B websites — each built, optimized and shipped end to end.</p>
+                </header>
+
+                <!-- NOTE TO FAIQ: the "Result" numbers below are realistic placeholders.
+                     Swap them for your own verified metrics when you have them. -->
+                <div class="grid grid--3 work">
+
+                    <article class="card project reveal">
+                        <a class="project__media" href="https://menaconversationalai.com/" target="_blank" rel="noopener" aria-label="Open MENA Conversational AI Summit site">
+                            <img src="menaconversationalai.jpeg" alt="MENA Conversational AI Summit website" loading="lazy">
+                            <span class="project__open"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                        </a>
+                        <div class="project__body">
+                            <h3 class="project__title">MENA Conversational AI Summit</h3>
+                            <p class="project__desc">A summit site for a 5th-edition AI &amp; contact-center event — agenda, speakers and a registration flow designed to fill seats.</p>
+                            <ul class="tags">
+                                <li>WordPress</li><li>Custom Theme</li><li>SEO</li><li>Registration UX</li>
+                            </ul>
+                            <p class="project__result"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> <strong>+32%</strong> registrations vs. previous edition</p>
+                            <a class="project__link" href="https://menaconversationalai.com/" target="_blank" rel="noopener">View live site <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card project reveal">
+                        <a class="project__media" href="https://meprocuretech.com/" target="_blank" rel="noopener" aria-label="Open MEProcureTech site">
+                            <img src="meprocuretect.jpeg" alt="MEProcureTech procurement summit website" loading="lazy">
+                            <span class="project__open"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                        </a>
+                        <div class="project__body">
+                            <h3 class="project__title">MEProcureTech</h3>
+                            <p class="project__desc">A B2B site for the procurement-tech space — clear value messaging and a fast, credible experience for enterprise buyers.</p>
+                            <ul class="tags">
+                                <li>WordPress</li><li>Custom Theme</li><li>Performance</li><li>SEO</li>
+                            </ul>
+                            <p class="project__result"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> <strong>95+</strong> PageSpeed · <strong>1.4s</strong> load</p>
+                            <a class="project__link" href="https://meprocuretech.com/" target="_blank" rel="noopener">View live site <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card project reveal">
+                        <a class="project__media" href="https://smartportstransformation.com/" target="_blank" rel="noopener" aria-label="Open Smart Ports Transformation site">
+                            <img src="Smartportstransformation.jpeg" alt="Smart Ports Transformation summit website" loading="lazy">
+                            <span class="project__open"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                        </a>
+                        <div class="project__body">
+                            <h3 class="project__title">Smart Ports Transformation</h3>
+                            <p class="project__desc">A logistics &amp; smart-infrastructure summit site for the Saudi market, built to a tight timeline without cutting corners.</p>
+                            <ul class="tags">
+                                <li>WordPress</li><li>Custom Theme</li><li>Responsive</li><li>SEO</li>
+                            </ul>
+                            <p class="project__result"><i class="fa-solid fa-rocket" aria-hidden="true"></i> Launched in <strong>12 days</strong>, zero downtime</p>
+                            <a class="project__link" href="https://smartportstransformation.com/" target="_blank" rel="noopener">View live site <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card project reveal">
+                        <a class="project__media" href="https://bespoke.verve-management.com/" target="_blank" rel="noopener" aria-label="Open Bespoke roundtable site">
+                            <img src="bespoke1.jpeg" alt="Bespoke roundtable event website" loading="lazy">
+                            <span class="project__open"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                        </a>
+                        <div class="project__body">
+                            <h3 class="project__title">Bespoke Roundtables</h3>
+                            <p class="project__desc">An invite-only roundtable series site for education &amp; career-services leaders — refined, focused and fast to update.</p>
+                            <ul class="tags">
+                                <li>WordPress</li><li>Custom Theme</li><li>Redesign</li><li>SEO</li>
+                            </ul>
+                            <p class="project__result"><i class="fa-solid fa-bolt" aria-hidden="true"></i> <strong>3×</strong> faster page loads after redesign</p>
+                            <a class="project__link" href="https://bespoke.verve-management.com/" target="_blank" rel="noopener">View live site <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card project reveal">
+                        <a class="project__media" href="https://africawomenleaders.com/" target="_blank" rel="noopener" aria-label="Open Africa Women Leaders Summit site">
+                            <img src="africawomenleaders.jpeg" alt="Africa Women Leaders Summit & Awards website" loading="lazy">
+                            <span class="project__open"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                        </a>
+                        <div class="project__body">
+                            <h3 class="project__title">Africa Women Leaders Summit</h3>
+                            <p class="project__desc">A summit &amp; awards platform celebrating women's leadership — bold, mobile-first design built to drive nominations and sign-ups.</p>
+                            <ul class="tags">
+                                <li>WordPress</li><li>Custom Theme</li><li>Mobile-First</li><li>SEO</li>
+                            </ul>
+                            <p class="project__result"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i> <strong>+40%</strong> mobile sign-ups</p>
+                            <a class="project__link" href="https://africawomenleaders.com/" target="_blank" rel="noopener">View live site <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="card project reveal">
+                        <a class="project__media" href="https://hseweek-uae.com/" target="_blank" rel="noopener" aria-label="Open HSE Week UAE site">
+                            <img src="hseweek-uae.jpeg" alt="HSE Week UAE health, safety and environment event website" loading="lazy">
+                            <span class="project__open"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                        </a>
+                        <div class="project__body">
+                            <h3 class="project__title">HSE Week UAE</h3>
+                            <p class="project__desc">A health, safety &amp; environment event site aligned with UAE sustainability goals — clear info architecture and a strong first impression.</p>
+                            <ul class="tags">
+                                <li>WordPress</li><li>Custom Theme</li><li>Performance</li><li>SEO</li>
+                            </ul>
+                            <p class="project__result"><i class="fa-solid fa-users" aria-hidden="true"></i> <strong>10k+</strong> visitors in launch month</p>
+                            <a class="project__link" href="https://hseweek-uae.com/" target="_blank" rel="noopener">View live site <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ABOUT + EDUCATION ==================== -->
+        <section class="section" id="about">
+            <div class="wrap about">
+                <div class="about__media reveal">
+                    <div class="about__frame">
+                        <img src="Faiq_Aziz.png" alt="Portrait of Faiq Aziz, WordPress developer" loading="lazy" width="420" height="420">
+                    </div>
+                    <div class="about__stamp"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Available on Upwork</div>
+                </div>
+
+                <div class="about__copy reveal">
+                    <p class="eyebrow">// About me</p>
+                    <h2 class="section__title">Hi, I'm Faiq — I make WordPress <span class="hl">behave</span>.</h2>
+                    <p>I'm a WordPress developer based in Islamabad who's spent the last 2+ years building sites that do more than look good. I've launched <strong>40+ websites</strong> for event organizers, summits and B2B companies across the UAE, MENA and beyond — most recently as part of the team at Verve Management in Dubai.</p>
+                    <p>My focus is the details that actually move the needle: fast load times, clean SEO and layouts designed to convert, not just decorate. I hold a <strong>BS in Computer Science</strong>, so under the polish there's real engineering — no bloated page builders, no broken mobile views, just sites that ship on time and perform in the wild.</p>
+
+                    <ul class="facts">
+                        <li><span class="facts__k"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Education</span><span class="facts__v">BS in Computer Science</span></li>
+                        <li><span class="facts__k"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Based in</span><span class="facts__v">Islamabad, Pakistan (remote-ready)</span></li>
+                        <li><span class="facts__k"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Experience</span><span class="facts__v">2+ years · 40+ sites launched</span></li>
+                        <li><span class="facts__k"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Stack</span><span class="facts__v">WordPress · PHP · HTML/CSS/JS · SEO</span></li>
+                    </ul>
+
+                    <div class="about__actions">
+                        <!-- SWAP: your Upwork profile URL -->
+                        <a href="https://www.upwork.com/freelancers/YOUR_UPWORK_ID" target="_blank" rel="noopener" class="btn btn--solid">
+                            <i class="fa-brands fa-upwork" aria-hidden="true"></i> Work with me on Upwork
+                        </a>
+                        <a href="https://www.linkedin.com/in/faiq-aziz-7a23b3234/" target="_blank" rel="noopener" class="btn btn--ghost">
+                            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i> LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PROCESS ==================== -->
+        <section class="section section--alt" id="process">
+            <div class="wrap">
+                <header class="section__head reveal">
+                    <p class="eyebrow">// How we'll work</p>
+                    <h2 class="section__title">A simple, no-surprises <span class="hl">process</span>.</h2>
+                    <p class="section__lead">Clear steps, clear timelines, clear communication — so you always know exactly where your project stands.</p>
+                </header>
+
+                <ol class="steps">
+                    <li class="step reveal">
+                        <span class="step__num">01</span>
+                        <h3 class="step__title">Discovery</h3>
+                        <p>We talk goals, audience and deadlines. I map exactly what your site needs to do and what "done" looks like.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step__num">02</span>
+                        <h3 class="step__title">Design</h3>
+                        <p>A clean, on-brand layout you review and approve before a single line of code is written — no guesswork.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step__num">03</span>
+                        <h3 class="step__title">Build</h3>
+                        <p>Custom WordPress development — responsive, SEO-ready and tested across real devices and browsers.</p>
+                    </li>
+                    <li class="step reveal">
+                        <span class="step__num">04</span>
+                        <h3 class="step__title">Launch &amp; Support</h3>
+                        <p>We go live on schedule — then I stick around for fixes, updates and improvements whenever you need them.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ==================== TESTIMONIALS ==================== -->
+        <section class="section" id="testimonials">
+            <div class="wrap">
+                <header class="section__head reveal">
+                    <p class="eyebrow">// Kind words</p>
+                    <h2 class="section__title">What clients say.</h2>
+                    <p class="section__lead">A few notes from people I've built for.</p>
+                </header>
+
+                <!-- SWAP: replace these placeholder quotes with your real client testimonials
+                     (e.g. paste your best Upwork review text and client name/role). -->
+                <div class="grid grid--3 quotes">
+                    <figure class="card quote reveal">
+                        <div class="stars" aria-label="5 out of 5 stars">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote>"Faiq rebuilt our summit site in under two weeks and registrations noticeably jumped. He's fast, communicates clearly, and genuinely understands conversion."</blockquote>
+                        <figcaption>
+                            <span class="quote__avatar">SM</span>
+                            <span><strong>Sarah M.</strong><em>Event Director</em></span>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="card quote reveal">
+                        <div class="stars" aria-label="5 out of 5 stars">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote>"Our old site was slow and clunky. Faiq made it load instantly and rank better. Easily one of the best WordPress developers we've hired on Upwork."</blockquote>
+                        <figcaption>
+                            <span class="quote__avatar">DR</span>
+                            <span><strong>David R.</strong><em>Marketing Lead</em></span>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="card quote reveal">
+                        <div class="stars" aria-label="5 out of 5 stars">
+                            <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <blockquote>"Reliable, detail-obsessed and great with deadlines. He handled our multi-page conference site end to end without any hand-holding. Will hire again."</blockquote>
+                        <figcaption>
+                            <span class="quote__avatar">AK</span>
+                            <span><strong>Aisha K.</strong><em>Program Manager</em></span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACT / CTA ==================== -->
+        <section class="section cta" id="contact">
+            <div class="wrap cta__inner">
+                <div class="cta__copy reveal">
+                    <p class="eyebrow">// Let's talk</p>
+                    <h2 class="section__title">Have a project? Let's build something that <span class="hl">performs</span>.</h2>
+                    <p class="section__lead">Tell me about your site or event and I'll reply within 24 hours. Prefer Upwork? Message me there to get started with escrow protection and a clear scope.</p>
+
+                    <div class="cta__actions">
+                        <!-- SWAP: your Upwork profile URL -->
+                        <a href="https://www.upwork.com/freelancers/YOUR_UPWORK_ID" target="_blank" rel="noopener" class="btn btn--solid btn--lg">
+                            <i class="fa-brands fa-upwork" aria-hidden="true"></i> Message me on Upwork
+                        </a>
+                        <a href="mailto:faiqaziz360@gmail.com" class="btn btn--ghost btn--lg">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i> faiqaziz360@gmail.com
+                        </a>
+                    </div>
+
+                    <ul class="cta__points">
+                        <li><i class="fa-solid fa-clock" aria-hidden="true"></i> Replies within 24 hours</li>
+                        <li><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Upwork-protected payments</li>
+                        <li><i class="fa-solid fa-globe" aria-hidden="true"></i> Comfortable across time zones</li>
+                    </ul>
+                </div>
+
+                <!-- Contact form.
+                     SWAP: create a free form at https://formspree.io and paste your ID below,
+                     OR delete this form and keep the Upwork/email buttons only. -->
+                <form class="card contact-form reveal" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" id="contactForm" novalidate>
+                    <h3 class="contact-form__title">Send a quick brief</h3>
+                    <div class="field">
+                        <label for="cf-name">Name</label>
+                        <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+                    </div>
+                    <div class="field">
+                        <label for="cf-email">Email</label>
+                        <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+                    </div>
+                    <div class="field">
+                        <label for="cf-project">Project type</label>
+                        <select id="cf-project" name="project_type">
+                            <option>Event / summit website</option>
+                            <option>B2B / corporate website</option>
+                            <option>Landing page</option>
+                            <option>Redesign / speed-up</option>
+                            <option>Maintenance &amp; support</option>
+                            <option>Something else</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="cf-message">Message</label>
+                        <textarea id="cf-message" name="message" rows="4" placeholder="A sentence or two about your project, timeline and budget." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--solid btn--block">Send message <i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
+                    <p class="contact-form__note" id="formNote" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/faiq-aziz-7a23b3234/" class="social-link">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/faiqaziz0807" class="social-link">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://x.com/faiqaziz20000?s=11&t=1nVvtJPBzp_gbH-BCVOJ8A" class="social-link">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="mailto:faiqaziz360@gmail.com" class="social-link">
-                <i class="fas fa-envelope"></i>
-            </a>
+        <div class="wrap footer__inner">
+            <div class="footer__brand">
+                <span class="brand__mark">FA</span>
+                <div>
+                    <strong>Faiq Aziz</strong>
+                    <span>WordPress Developer · Building fast, high-converting websites.</span>
+                </div>
+            </div>
+
+            <div class="footer__social">
+                <!-- SWAP: your Upwork profile URL -->
+                <a href="https://www.upwork.com/freelancers/YOUR_UPWORK_ID" target="_blank" rel="noopener" aria-label="Upwork"><i class="fa-brands fa-upwork"></i></a>
+                <a href="https://www.linkedin.com/in/faiq-aziz-7a23b3234/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/faiqaziz0807" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://x.com/faiqaziz20000" target="_blank" rel="noopener" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="mailto:faiqaziz360@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
         </div>
-        <p>&copy; 2025 Faiq Aziz. All rights reserved.</p>
+        <div class="wrap footer__bottom">
+            <span>© <span id="year">2026</span> Faiq Aziz. All rights reserved.</span>
+            <a href="#top" class="footer__top">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
     </footer>
 
-    <script>
-        // Mobile menu functionality
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        mobileMenuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = mobileMenuToggle.querySelector('i');
-            
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-
-        // Close mobile menu when clicking on a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                const icon = mobileMenuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.nav-container')) {
-                navMenu.classList.remove('active');
-                const icon = mobileMenuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Navbar background change on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = 'none';
-            }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                    
-                    // Special handling for skill progress bars
-                    if (entry.target.classList.contains('skill-item')) {
-                        const progressBar = entry.target.querySelector('.skill-progress');
-                        const width = progressBar.getAttribute('data-width');
-                        setTimeout(() => {
-                            progressBar.style.width = width + '%';
-                        }, 200);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in, .timeline-item, .skill-item, .project-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add touch support for hover effects on mobile
-        if ('ontouchstart' in window) {
-            document.querySelectorAll('.project-card, .skill-item, .timeline-content').forEach(card => {
-                card.addEventListener('touchstart', function() {
-                    this.style.transform = 'translateY(-5px)';
-                });
-                
-                card.addEventListener('touchend', function() {
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-        }
-
-        // Parallax effect for hero section (disabled on mobile for performance)
-        if (window.innerWidth > 768) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero');
-                const heroContent = document.querySelector('.hero-content');
-                
-                if (hero && scrolled < hero.offsetHeight) {
-                    heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-                }
-            });
-        }
-
-        // Performance optimization: throttle scroll events
-        function throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            }
-        }
-
-        // Lazy loading for images
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src || img.src;
-                        img.classList.remove('loading');
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-
-            document.querySelectorAll('img').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
-
-        // Add loading states
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-        });
-
-        // Handle orientation change on mobile
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                window.scrollTo(0, window.scrollY);
-            }, 100);
-        });
-
-        // Smooth reveal animation for sections
-        function revealSection(entries, observer) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }
-
-        const sectionObserver = new IntersectionObserver(revealSection, {
-            threshold: 0.15
-        });
-
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'all 0.8s ease';
-            sectionObserver.observe(section);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
